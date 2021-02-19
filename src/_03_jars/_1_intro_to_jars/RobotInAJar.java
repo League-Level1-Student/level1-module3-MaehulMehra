@@ -1,10 +1,11 @@
 package _03_jars._1_intro_to_jars;
 
+import org.jointheleague.graphical.robot.Robot;
 
 public class RobotInAJar {
 	
 	/* 1.   Create a String variable and initialize it to your name  */
-	
+	String name = "Maehul";
 	
 	/* If you did not make any syntax errors, there should be no red lines under your code. 
 	 * This is because the type String is part of the basic Java language that all programs  
@@ -12,7 +13,8 @@ public class RobotInAJar {
 	
 	
 	/* 2.   Now declare a Robot variable and create a new Robot  */
-
+	private Robot rob;
+	
 	
 	/* Even if you did not make any syntax errors, there should be a red line under the word Robot.
 	 * This is because the type Robot is not part of the basic Java language. If you want to use 
@@ -58,7 +60,13 @@ public class RobotInAJar {
 	
 	public void draw() {
 		/*** Write code to make your robot draw a shape here ****/
-		
-		
+		rob = new Robot ();
+		rob.setSpeed(15);
+		rob.penDown();
+		for (int i = 0; i < 4; i ++) {
+			rob.move(50);
+			rob.turn(90);
+		}
+		rob.hide();
 	}
 }
