@@ -5,6 +5,10 @@ package _03_jars._2_jukebox;
  */
 
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -12,21 +16,24 @@ import java.net.URL;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.SwingUtilities;
+import javax.swing.JPanel;
 
 import javazoom.jl.player.advanced.AdvancedPlayer;
 
 /*   If you don't have javazoom.jar in your project, you can download it from here: http://bit.ly/javazoom
  *   Right click your project and add it as a JAR (Under Java Build Path > Libraries).*/
 
-public class Jukebox implements Runnable {
-
+public class Jukebox implements Runnable, MouseListener {
+	JLabel label1 = loadImage ("duck song.jpg");
+	JLabel label2 = loadImage ("babyshark.jpg");
+	Song duckSong = new Song ("The Duck Song.mp3");
+	Song babyShark = new Song ("Baby Shark Dance Most Viewed Video on YouTube PINKFONG Songs for Children.mp3");
     public void run() {
 
 		// 1. Find an mp3 on your computer or on the Internet.
 		// 2. Create a Song object for that mp3
-
 		// 3. Play the Song
 
 		/*
@@ -36,6 +43,15 @@ public class Jukebox implements Runnable {
 		 * cover is clicked, stop the currently playing song, and play the one
 		 * that was selected.
 		 */
+    	JFrame frame = new JFrame ();
+    	frame.setVisible(true);
+    	JPanel panel = new JPanel ();
+    	frame.add(panel);
+    	panel.add(label1);
+    	panel.add(label2);
+    	frame.pack();
+    	label1.addMouseListener(this);
+    	label2.addMouseListener(this);
     }
     
     
@@ -44,6 +60,49 @@ public class Jukebox implements Runnable {
 		URL imageURL = getClass().getResource(fileName);
 		Icon icon = new ImageIcon(imageURL);
 		return new JLabel(icon);
+	}
+
+
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		if (arg0.getSource () == label1) {
+			duckSong.play ();
+		}
+		if (arg0.getSource() == label2) {
+			babyShark.play();
+		}
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+
+		// TODO Auto-generated method stub
+		
 	}
 
 }
