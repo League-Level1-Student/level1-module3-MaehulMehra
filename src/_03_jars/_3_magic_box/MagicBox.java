@@ -15,6 +15,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -36,12 +37,14 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 	 *   
 	 *     
 	 */
-
+	JFrame frame = new JFrame ();
+	MediaPalace media = new MediaPalace ();
 	BufferedImage backgroundImage;
 
 
 	@Override
 	public void run() {
+		
 		try {
 			loadBackgroundImage();
 			createUI();
@@ -52,6 +55,7 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 
 	private void createUI() {
 		JFrame frame = new JFrame("The Magic Box contains many secrets...");
+		frame.addMouseListener(this);
 		frame.add(this);
 		setPreferredSize(new Dimension(backgroundImage.getWidth(), backgroundImage.getHeight()));
 		frame.pack();
@@ -76,7 +80,29 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		int x = e.getX ();
+		int y = e.getY();
+		if (x>200) {
+			JLabel imageLabel = media.loadImageFromWithinProject("magic-box.jpg");
+	           JFrame frame = new JFrame();
+	           frame.add(imageLabel);
+	           frame.setVisible(true);
+	           frame.pack();
+		}
+		if (y<100) {
+			JLabel imageLabel = media.loadImageFromWithinProject("carrrrr.jpg");
+			JFrame frame = new JFrame ();
+			frame.add(imageLabel);
+			frame.setVisible(true);
+			frame.pack();
+		}
+		if (x<200 && y>100) {
+			JLabel imageLabel = media.loadImageFromWithinProject("rawr.jpg");
+			JFrame frame = new JFrame ();
+			frame.add(imageLabel);
+			frame.setVisible(true);
+			frame.pack();
+		}
 	}
 
 	@Override
