@@ -5,7 +5,11 @@ package _07_cow_timer;
  */
 
 import java.applet.AudioClip;
+import java.io.File;
 import java.io.IOException;
+
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JApplet;
 
 public class CowTimer {
@@ -15,7 +19,7 @@ public class CowTimer {
 	 * variable
 	 */
 	CowTimer (int minutes){
-		
+		this.minutes = minutes;
 	}
 	/* 4. Complete the main method of the CowTimerRunner class */
 
@@ -31,18 +35,38 @@ public class CowTimer {
 		 * 2. Count down the minutes, print the current minute then sleep for the number
 		 * of minutes using Thread.sleep(int milliseconds).
 		 */
-
+		for (int i = minutes; i > 0; i --) {
+			Thread.sleep(6000);
+			System.out.println(i);
+		}
+		
 		/*
 		 * 3. When the timer is finished, use the playSound method to play a moo sound.
 		 * You can use the .wav file in the default package, or you can download one
 		 * from freesound.org, then drag it intothe default package.
 		 */
+		playSound ("moo.wav");
 
 	}
 
-	private void playSound(String fileName) {
-		AudioClip sound = JApplet.newAudioClip(getClass().getResource(fileName));
-		sound.play();
+	private void playSound(String soundFile) {
+		String path = "src/_07_cow_timer/";
+			File sound = new File(path+soundFile);
+			if (sound.exists()) {
+				new Thread(() -> {
+				try {
+					Clip clip = AudioSystem.getClip();
+					clip.open(AudioSystem.getAudioInputStream(sound));
+					clip.start();
+					Thread.sleep(clip.getMicrosecondLength()/1000);
+				}
+				catch (Exception e) {
+					System.out.println("Could not play this sound");
+				}}).start();
+	 		}
+			else {
+				System.out.println("File does not exist");
+			}
 	}
 
 	static void speak(String words) {

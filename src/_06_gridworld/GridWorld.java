@@ -32,6 +32,12 @@ public class GridWorld {
 		bugger.setColor(Color.blue);
 		bugger.turn();
 		bugger.turn();
-		
+		for (int row = 0; row < 10; row ++) {
+			for (int col = 0; col < 10; col ++) {
+				Location rowCol = new Location (row, col);
+				Flower rowColFlow = new Flower ();
+				world.add(rowCol, rowColFlow);
+			}
+		}
 	}
 }
